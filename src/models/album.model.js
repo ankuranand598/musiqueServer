@@ -7,7 +7,7 @@ let albumSchema = new mongoose.Schema(
     year: { type: Number, require: true, minlength: 1800, maxlength: 2021 },
     artistId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "artistUsers",
+      ref: "artistUser",
       require: true,
     },
   },

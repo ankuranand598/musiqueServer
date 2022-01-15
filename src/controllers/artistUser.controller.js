@@ -42,4 +42,15 @@ let register = async (request, response) => {
     return response.status(500).send({ messege: "sorry for inconvenience" });
   }
 };
-module.exports = { login, register };
+let update = async (request, response) => {
+  // let artistUser = request.artist;
+  // let artist = await Artist.findByIdAndUpdate(
+  //   artistUser._id,
+  //   { body: request.body },
+  //   {
+  //     new: true,
+  //   }
+  // );
+  // response.status(200).send({ artist });
+};
+module.exports = { login, register, update };
