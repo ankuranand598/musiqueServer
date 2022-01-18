@@ -3,8 +3,18 @@ let router = express.Router();
 let authenticate = require("../middleware/authenticate.middleware");
 let Album = require("../models/album.model");
 router.get("", async (request, response) => {
-  let album = await Album.find().populate("artistId").lean().exec();
-  response.status(200).send(album);
+  let p = +request.query.page || 1;
+  let size = 2;
+  let offset = (p - 1) / size;
+  let album = await Album.find()
+    .populate("artistId")
+    .skip(offset)
+    .limit(size)
+    .lean()
+    .exec();
+  let totalAlbum = await Album.find().countDocuments();
+  let totalPages = Math.ceil(totalAlbum / size);
+  response.status(200).send({ album, totalPages });
 });
 router.post("", authenticate, async (request, response) => {
   let album = await Album.create(request.body);
